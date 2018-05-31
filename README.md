@@ -1,1 +1,3 @@
-# woocommerce-custom-badges
+# yoohoo-custom-badges
+
+Custom Badges For WooCommerce Plugin. Under development.
