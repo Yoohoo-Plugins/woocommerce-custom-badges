@@ -1,0 +1,156 @@
+.yoohoo_wrap .header {
+    background: #b06a94;
+}
+
+.yoohoo_wrap .header img {
+    max-height: 150px;
+    margin-left:50%;
+    transform: translateX(-50%);
+}
+
+.yoohoo_wrap .header h3 {
+    margin: 0;
+    padding: 15px 5px;
+    color: #fff;
+}
+
+.yoohoo_wrap .yoohoo_footer .company{
+    background: #23282d;
+    height: 40px;
+}
+
+.yoohoo_wrap .yoohoo_footer .company img {
+    max-height: 30px;
+    padding: 5px 30px;
+}
+
+
+.yoohoo_wrap .button {
+    height: 30px;
+    background: #ddd;
+    border: none;
+    text-shadow: none;
+    color: #333;
+    text-transform: uppercase;
+    box-shadow: none;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.yoohoo_wrap .button:hover{
+    background: #23282d;
+    color: #fff;
+}
+
+.yoohoo_wrap .button-primary {
+    background: #793d61;
+    color: #fff;
+}
+
+.yoohoo_wrap .button-primary:hover{
+    background: #23282d;
+}
+
+.yoohoo_wrap .yoohoo_footer [type=submit],
+.yoohoo_wrap .yoohoo_footer .button-primary {
+    float: left;
+    height: 30px;
+    margin-left:  10px;
+    margin-top: 5px;
+    background: #fff;
+    border: none;
+    text-shadow: none;
+    color: #23282d;
+    text-transform: uppercase;
+    box-shadow: none;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+
+.yoohoo_wrap .tab-container > .tab-clickable{
+    padding: 5px 10px;
+    display:  inline-block;
+    vertical-align:  top;
+    background: #f5f5f5;
+
+    cursor: pointer;
+}
+
+.yoohoo_wrap .tab-container > .tab-clickable.active{
+    background: #793d61;
+    color: #fff;
+}
+
+.yoohoo_wrap select,
+.yoohoo_wrap input[type=text] {
+    border-radius: 5px;
+    width: 50%;
+}
+
+.yoohoo_wrap input[type=color]{
+    border-radius: 5px;
+}
+
+.badge_shape_preview {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #b06a94;
+    color: #fff;
+}
+
+.badge_shape_preview.circle,
+#badge_preview.circle{
+    border-radius: 100px;
+}
+
+.badge_shape_preview.square,
+#badge_preview.square{
+    border-radius: 0;
+}
+
+.badge_shape_preview.rounded,
+#badge_preview.rounded{
+    border-radius: 5px;
+}
+
+.yoohoo_wrap .emoji_selector_container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.yoohoo_wrap .inline-input{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.yoohoo_wrap .emoji_button {
+    height: 27px !important;
+    line-height: 11px !important;
+    font-size: 11px !important;
+}
+
+.yoohoo_wrap .emoji_popup{
+    display: none;
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    transform: translateX(-88%);
+    margin-top: 5px;
+    background: #fff;
+    border: 1px solid #eee;
+    box-shadow: 2px 2px 20px #3333330f;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.yoohoo_wrap .emoji_popup.active{
+    display: block;
+}
+
+.yoohoo_wrap .emoji_popup .em{
+    margin: 2px;
+    cursor: pointer;
+}

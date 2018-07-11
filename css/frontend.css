@@ -1,0 +1,24 @@
+.yoohoo_badge{
+    min-height: 50px !important;
+    min-width: 50px !important;
+    max-height: 50px !important;
+    font-weight: 700 !important;
+    position: absolute !important;
+    text-align: center !important;
+    line-height: 44px !important;
+    font-size: .857em !important;
+    -webkit-font-smoothing: antialiased;
+    z-index: 9;
+}
+
+.yoohoo_badge_circular{
+    border-radius: 100px !important;
+}
+
+.yoohoo_badge_square{
+    border-radius: 0 !important;
+}
+
+.yoohoo_badge_rounded{
+    border-radius: 5px !important;
+}
