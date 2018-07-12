@@ -11,7 +11,7 @@ jQuery(function(){
 
         jQuery('#ycb_badge_shape').on('change', function(){
             let current_val = parseInt(jQuery(this).val());
-            jQuery('.badge_shape_preview').removeClass('circle').removeClass('square').removeClass('rounded');
+            jQuery('.badge_shape_preview').removeClass('circle').removeClass('square').removeClass('rounded').removeClass('square_wide');
 
             switch(current_val){
                 case 0:
@@ -22,6 +22,9 @@ jQuery(function(){
                     break;
                 case 2:
                     jQuery('.badge_shape_preview').addClass('rounded');
+                    break;
+                case 3:
+                    jQuery('.badge_shape_preview').addClass('square_wide');
                     break;
             }
         });

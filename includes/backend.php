@@ -17,6 +17,7 @@ function ycb_admin_enqueue($hook) {
 
     wp_enqueue_script( 'ycb_admin_js', plugin_dir_url(__FILE__) . '../js/admin.js', array('jquery') );
     wp_enqueue_script( 'ycb_admin_emoji_ref_js', plugin_dir_url(__FILE__) . '../js/emoji_ref_array.js', array('jquery') );
+    wp_enqueue_script( 'ycb_admin_fa_ref_js', plugin_dir_url(__FILE__) . '../js/fa_ref_array.js', array('jquery') );
     wp_enqueue_script( 'ycb_admin_emoji_js', plugin_dir_url(__FILE__) . '../js/emoji_picker.js', array('jquery', 'ycb_admin_emoji_ref_js') );
 }
 add_action( 'admin_enqueue_scripts', 'ycb_admin_enqueue' );
@@ -36,12 +37,80 @@ function ycb_setting_area(){
                 <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/custom_badges_banner.png'; ?>" />
 
                 <div class='tab-container'>
-                    <div data-tab-id="tab_1" class='tab-clickable active'><?php _e("Discount Badges"); ?></div>
-                    <div data-tab-id="tab_2" class='tab-clickable'><?php _e("Global Settings"); ?></div>
+                    <div data-tab-id="tab_1" class='tab-clickable active'><?php _e("Global Settings"); ?></div>
+                    <div data-tab-id="tab_2" class='tab-clickable'><?php _e("Discount Badges"); ?></div>
                 </div>
             </div>
 
-            <div id="tab_1">
+            <div id='tab_1'>
+                <table class="widefat tab-content-table">
+
+                    <tr>
+                        <td style="width:50%">
+                            <strong><?php _e("General Options"); ?></strong>
+                        </td>
+                        <td style="width:50%"></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label><?php _e("Hide Default WooCommerce 'Sale' tag"); ?>:</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="<?php echo ( isset($ycb_settings["ycb_hide_default_sale_tag"]) && $ycb_settings["ycb_hide_default_sale_tag"] === "true" ? "true" : "" ); ?>" <?php echo ( isset($ycb_settings["ycb_hide_default_sale_tag"]) && $ycb_settings["ycb_hide_default_sale_tag"] === "true" ? "checked='checked'" : "" ); ?> name="ycb_hide_default_sale_tag" id="ycb_hide_default_sale_tag">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label><?php _e("Do not show YooHoo Discount Badge"); ?>:</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" value="<?php echo ( isset($ycb_settings["ycb_hide_internal_sale_tag"]) && $ycb_settings["ycb_hide_internal_sale_tag"] === "true" ? "true" : "" ); ?>" <?php echo ( isset($ycb_settings["ycb_hide_internal_sale_tag"]) && $ycb_settings["ycb_hide_internal_sale_tag"] === "true" ? "checked='checked'" : "" ); ?> name="ycb_hide_internal_sale_tag" id="ycb_hide_internal_sale_tag">
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width:50%">
+                            <strong><?php _e("Badge Shape"); ?></strong>
+                        </td>
+                        <td style="width:50%"></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <?php
+                                $shape_setting = isset($ycb_settings["ycb_badge_shape"]) ? intval($ycb_settings["ycb_badge_shape"]) : false;
+                                $shape_class_default = 'circle';
+                                switch ($shape_setting) {
+                                    case 1:
+                                        $shape_class_default = 'square';
+                                        break;
+                                    case 2:
+                                        $shape_class_default = 'rounded';
+                                        break;
+                                    case 3;
+                                        $shape_class_default = 'square_wide';
+                                        break;
+                                }
+                            ?>
+                            <select id='ycb_badge_shape' name='ycb_badge_shape'>
+                                <option value='0' <?php echo($shape_setting === 0 || $shape_setting === false ? 'selected' : ''); ?> ><?php _e('Round'); ?></option>
+                                <option value='1' <?php echo($shape_setting === 1 ? 'selected' : ''); ?> ><?php _e('Square'); ?></option>
+                                <option value='2' <?php echo($shape_setting === 2 ? 'selected' : ''); ?> ><?php _e('Rounded Square'); ?></option>
+                                <option value='3' <?php echo($shape_setting === 3 ? 'selected' : ''); ?> ><?php _e('Banner'); ?></option>
+                            </select>
+                        </td>
+                        <td>
+                            <small><em><?php _e('Preview'); ?></em></small>
+                            <div class='badge_shape_preview <?php echo $shape_class_default; ?>'>YooHoo</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="tab_2" style='display: none;'>
                 <table class="widefat tab-content-table">
                     <tr>
                         <td style="width:50%">
@@ -153,60 +222,6 @@ function ycb_setting_area(){
                 </table>
             </div>
 
-            <div id='tab_2' style='display: none;'>
-                <table class="widefat tab-content-table">
-
-                    <tr>
-                        <td style="width:50%">
-                            <strong><?php _e("General Options"); ?></strong>
-                        </td>
-                        <td style="width:50%"></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <label><?php _e("Hide Default WooCommerce 'Sale' tag"); ?>:</label>
-                        </td>
-                        <td>
-                            <input type="checkbox" value="<?php echo ( isset($ycb_settings["ycb_hide_default_sale_tag"]) && $ycb_settings["ycb_hide_default_sale_tag"] === "true" ? "true" : "" ); ?>" <?php echo ( isset($ycb_settings["ycb_hide_default_sale_tag"]) && $ycb_settings["ycb_hide_default_sale_tag"] === "true" ? "checked='checked'" : "" ); ?> name="ycb_hide_default_sale_tag" id="ycb_hide_default_sale_tag">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style="width:50%">
-                            <strong><?php _e("Badge Shape"); ?></strong>
-                        </td>
-                        <td style="width:50%"></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <?php
-                                $shape_setting = isset($ycb_settings["ycb_badge_shape"]) ? intval($ycb_settings["ycb_badge_shape"]) : false;
-                                $shape_class_default = 'circle';
-                                switch ($shape_setting) {
-                                    case 1:
-                                        $shape_class_default = 'square';
-                                        break;
-                                    case 2:
-                                        $shape_class_default = 'rounded';
-                                        break;
-                                }
-                            ?>
-                            <select id='ycb_badge_shape' name='ycb_badge_shape'>
-                                <option value='0' <?php echo($shape_setting === 0 || $shape_setting === false ? 'selected' : ''); ?> ><?php _e('Round'); ?></option>
-                                <option value='1' <?php echo($shape_setting === 1 ? 'selected' : ''); ?> ><?php _e('Square'); ?></option>
-                                <option value='2' <?php echo($shape_setting === 2 ? 'selected' : ''); ?> ><?php _e('Rounded Square'); ?></option>
-                            </select>
-                        </td>
-                        <td>
-                            <small><em><?php _e('Preview'); ?></em></small>
-                            <div class='badge_shape_preview <?php echo $shape_class_default; ?>'>YooHoo</div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
             <?php
                 do_action("ycb_settings_area_below_hook", $ycb_settings);
             ?>
@@ -238,6 +253,12 @@ function ycb_save_settings_head(){
             $ycb_settings_array['ycb_hide_default_sale_tag'] = "true";
         } else {
             $ycb_settings_array['ycb_hide_default_sale_tag'] = "false";
+        }
+
+        if(isset($_POST['ycb_hide_internal_sale_tag'])){
+            $ycb_settings_array['ycb_hide_internal_sale_tag'] = "true";
+        } else {
+            $ycb_settings_array['ycb_hide_internal_sale_tag'] = "false";
         }
 
         if(isset($_POST['ycb_0_20_color'])){
@@ -292,6 +313,8 @@ function ycb_save_settings_head(){
         $ycb_settings_array = apply_filters("ycb_save_settings_array_filter", $ycb_settings_array);
 
         update_option("ycb_primary_settings", maybe_serialize($ycb_settings_array));
+
+        echo "<div class='updated'><p>".__("Settings have been saved")."</p></div>";
     }
 }
 /**
@@ -923,6 +946,9 @@ function ycb_create_emoji_css_picker($for_id){
             </button>
             <div class='emoji_popup' data-input-asso='<?php echo $for_id; ?>'>
                 <!-- GENERATED DYNAMICALLY -->
+            </div>
+            <div class='emoji_search'>
+                <input type='text' class='emoji_search_input' placeholder=<?php _e('Search (Press Enter)'); ?> >
             </div>
         </div>
     <?php

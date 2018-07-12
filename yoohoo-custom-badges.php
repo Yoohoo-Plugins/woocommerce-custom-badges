@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: YooHoo Custom Basges
+Plugin Name: YooHoo Custom Badges
 Description: Adds discount badges to items on sale - Works with Dynamic Pricing. Supports adding standard text tags based on categories of products
 Version: 1.2
 Author: Andrew Lima

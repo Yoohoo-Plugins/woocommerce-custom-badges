@@ -10,13 +10,16 @@ function ycb_frontend_enqueue($hook) {
     if(is_admin()){
         return;
     }
-    wp_enqueue_style( 'ycb_frontend_css', plugin_dir_url(__FILE__) . '../css/frontend.css' );
-    wp_enqueue_style( 'ycb_frontend_fa_css', plugin_dir_url(__FILE__) . '../css/fa.css' );
-    wp_enqueue_style( 'ycb_frontend_emoji_css', plugin_dir_url(__FILE__) . '../css/emoji.css' );
+
+    if(is_woocommerce()){
+        wp_enqueue_style( 'ycb_frontend_css', plugin_dir_url(__FILE__) . '../css/frontend.css' );
+        wp_enqueue_style( 'ycb_frontend_fa_css', plugin_dir_url(__FILE__) . '../css/fa.css' );
+        wp_enqueue_style( 'ycb_frontend_emoji_css', plugin_dir_url(__FILE__) . '../css/emoji.css' );
 
 
-    $sale_tag_overrides = ycb_get_default_sales_tag_style_overrides();
-    wp_add_inline_style( 'ycb_frontend_css', $sale_tag_overrides );
+        $sale_tag_overrides = ycb_get_default_sales_tag_style_overrides();
+        wp_add_inline_style( 'ycb_frontend_css', $sale_tag_overrides );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'ycb_frontend_enqueue' );
 
@@ -73,10 +76,11 @@ function ycb_get_default_sales_tag_style_overrides(){
                 font-weight: 700 !important;
                 position: absolute !important;
                 text-align: center !important;
-                line-height: 44px !important;
+                line-height: 50px !important;
                 font-size: .857em !important;
                 -webkit-font-smoothing: antialiased;
                 z-index: 9;
+                padding: 0;
             }";
 
     return $overrides;
@@ -90,12 +94,10 @@ function ycb_add_discount_badge($content, $post, $product){
     global $ycb_using_flatsome;
 
     $ycb_settings = ycb_get_settings();
-    $base_price = $product->regular_price;
-    $discount_price = $product->sale_price;
 
-    if(class_exists("WC_Dynamic_Pricing")){
-        $discount_price = apply_filters("woocommerce_product_get_price", $base_price, $product, false);
-    }
+    //var_dump(get_class_methods($product));
+    $base_price = $product->get_regular_price();
+    $discount_price = $product->get_sale_price();
 
     if($product->is_type( 'variable' )){
         $variations = $product->get_available_variations();
@@ -106,10 +108,21 @@ function ycb_add_discount_badge($content, $post, $product){
         }
     }
 
+    if(class_exists("WC_Dynamic_Pricing")){
+        $discount_price = apply_filters("woocommerce_product_get_price", $base_price, $product, false);
+    }
+
     $percentage = round( ( ( floatval($base_price) - floatval($discount_price) ) / (floatval($base_price) > 0 ? floatval($base_price) : 1) ) * 100 );
 
     $sale_style = ycb_get_styles($ycb_settings, $percentage);
-    $sale_tag = "<span class='onsale ycb_on_sale yoohoo_badge ".ycb_get_badge_shape_class(false, $ycb_settings)."' style='$sale_style'>-" . $percentage . "%</span>";
+    $inner_content = "-" . $percentage . "%";
+    $filtered_content = apply_filters('ycb_discount_badge_override_hook', $inner_content);
+    $sale_tag = "<span class='onsale ycb_on_sale yoohoo_badge ".ycb_get_badge_shape_class(false, $ycb_settings)."' style='$sale_style'>" . $filtered_content . "</span>";
+
+    $force_remove_internal_tag = apply_filters('ycb_hide_internal_sale_tag', true, $ycb_settings);
+    if(!$force_remove_internal_tag){
+        $sale_tag = "";
+    }
 
     $hide_sale_tag = isset($ycb_settings['ycb_hide_default_sale_tag']) && $ycb_settings['ycb_hide_default_sale_tag'] === "true" ? true : false;
 
@@ -145,8 +158,17 @@ function ycb_custom_badge_shop_loop_opened(){
         $_pf = new WC_Product_Factory();
         $product = $_pf->get_product(get_the_ID());
 
-        $base_price = $product->regular_price;
-        $discount_price = $product->sale_price;
+        $base_price = $product->get_regular_price();
+        $discount_price = $product->get_sale_price();
+
+        if($product->is_type( 'variable' )){
+            $variations = $product->get_available_variations();
+            if(isset($variations[0])){
+                $variation = $variations[0];
+                $base_price = $variation["display_regular_price"];
+                $discount_price = $variation["display_price"];
+            }
+        }
 
         if(class_exists("WC_Dynamic_Pricing")){
             $discount_price = apply_filters("woocommerce_product_get_price", $base_price, $product, false);
@@ -161,6 +183,8 @@ function ycb_custom_badge_shop_loop_opened(){
         $hide_sale_tag = isset($ycb_settings['ycb_hide_default_sale_tag']) && $ycb_settings['ycb_hide_default_sale_tag'] === "true" ? true : false;
 
         $hide_sale_tag = $is_on_sale !== false ? $hide_sale_tag : false;
+
+        $is_on_sale = apply_filters('ycb_hide_internal_sale_tag', $is_on_sale, $ycb_settings);
 
         $addition = apply_filters("ycb_discount_badge_internal_filter", "", $product, $hide_sale_tag, $ycb_settings, $is_on_sale);
 
@@ -242,9 +266,10 @@ function ycb_get_styles($ycb_settings, $percentage){
 */
 function ycb_add_custom_badge_frontend($content, $product, $hide_sale_tag, $ycb_settings, $is_on_sale){
     global $ycb_has_hidden_sales_tag;
-    if(isset($product->category_ids)){
-        if(is_array($product->category_ids)){
-            $categories = $product->category_ids;
+    $cat_id_final = $product->get_category_ids();
+    if(isset($cat_id_final)){
+        if(is_array($cat_id_final)){
+            $categories = $cat_id_final;
             if(count($categories) > 0){
                 //Atleast one cat
                 ycb_custom_badge_hide_woo_sales_badge_on_page();
@@ -328,8 +353,6 @@ function ycb_custom_badge_hide_woo_sales_badge_on_page($force_hide = false){
 /**
  * Handles custom badge custom styles
 */
-
-
 function ycb_custom_badge_frontend_styles($badge_data, $hide_sale_tag, $ycb_settings, $increment, $is_on_sale){
     global $ycb_using_flatsome;
     $styles = "";
@@ -373,3 +396,17 @@ function ycb_custom_badge_frontend_styles($badge_data, $hide_sale_tag, $ycb_sett
 
     return $styles;
 }
+
+/**
+ * Allows users to force hide the internal sales tag as well
+*/
+function ycb_hide_internal_sale_tag_mutator($is_on_sale, $ycb_settings = false){
+    if($ycb_settings === false){ $ycb_settings = ycb_get_settings(); }
+
+    if(isset($ycb_settings['ycb_hide_internal_sale_tag']) && $ycb_settings['ycb_hide_internal_sale_tag'] === 'true'){
+        return false;
+    }
+
+    return $is_on_sale;
+}
+add_filter('ycb_hide_internal_sale_tag', 'ycb_hide_internal_sale_tag_mutator', 10, 2);

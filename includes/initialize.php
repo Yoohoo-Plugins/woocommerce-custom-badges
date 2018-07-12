@@ -157,6 +157,9 @@ function ycb_get_badge_shape_class($is_admin = false, $ycb_settings = false){
         case 2:
             $shape_class = $is_admin ? 'rounded' : 'yoohoo_badge_rounded';
             break;
+        case 3:
+            $shape_class = $is_admin ? 'square_wide' : 'yoohoo_badge_square_wide';
+            break;
     }
 
     return $shape_class;
