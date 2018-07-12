@@ -28,8 +28,9 @@ add_action( 'admin_enqueue_scripts', 'ycb_admin_enqueue' );
 function ycb_setting_area(){
     ycb_save_settings_head();
     $ycb_settings = ycb_get_settings();
-
+    $license_activation = ycb_activate_license_key( $ycb_settings );
     ?>
+
     <div class="wrap yoohoo_wrap">
         <form method="POST" action="">
 
@@ -39,6 +40,8 @@ function ycb_setting_area(){
                 <div class='tab-container'>
                     <div data-tab-id="tab_1" class='tab-clickable active'><?php _e("Global Settings"); ?></div>
                     <div data-tab-id="tab_2" class='tab-clickable'><?php _e("Discount Badges"); ?></div>
+                    <div data-tab-id="tab_3" class='tab-clickable'><?php _e("License Settings"); ?></div>
+
                 </div>
             </div>
 
@@ -63,7 +66,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("Do not show YooHoo Discount Badge"); ?>:</label>
+                            <label><?php _e("Do not show Yoohoo Discount Badge"); ?>:</label>
                         </td>
                         <td>
                             <input type="checkbox" value="<?php echo ( isset($ycb_settings["ycb_hide_internal_sale_tag"]) && $ycb_settings["ycb_hide_internal_sale_tag"] === "true" ? "true" : "" ); ?>" <?php echo ( isset($ycb_settings["ycb_hide_internal_sale_tag"]) && $ycb_settings["ycb_hide_internal_sale_tag"] === "true" ? "checked='checked'" : "" ); ?> name="ycb_hide_internal_sale_tag" id="ycb_hide_internal_sale_tag">
@@ -104,9 +107,10 @@ function ycb_setting_area(){
                         </td>
                         <td>
                             <small><em><?php _e('Preview'); ?></em></small>
-                            <div class='badge_shape_preview <?php echo $shape_class_default; ?>'>YooHoo</div>
+                            <div class='badge_shape_preview <?php echo $shape_class_default; ?>'>Yoohoo</div>
                         </td>
                     </tr>
+
                 </table>
             </div>
 
@@ -223,6 +227,83 @@ function ycb_setting_area(){
             </div>
 
             <?php
+
+            $license = isset( $ycb_settings['ycb_license_key'] ) ? $ycb_settings['ycb_license_key'] : '';
+            
+            $expires = isset( $license_activation ) ? $license_activation->expires : $ycb_settings[ 'ycb_license_expires'];
+
+            if ( isset( $license_activation ) ) {
+                $status = $license_activation->license;
+            } elseif ( isset( $ycb_settings['ycb_license_status'] ) ) {
+                $status = $ycb_settings['ycb_license_status'];
+            } else {
+                $status = '';
+            }
+
+            if ( isset( $license_activation ) ) {
+                $expires = $license_activation->expires;
+            } elseif ( isset( $ycb_settings['ycb_license_expires'] ) ) {
+                $expires = $ycb_settings['ycb_license_expires'];
+            } else {
+                $expires = '';
+            }
+
+            ?>
+            <div id='tab_3' style='display: none;'>
+                <table class="widefat tab-content-table">
+
+                    <tr>
+                        <td style="width:50%">
+                            <strong><?php _e("License Settings"); ?></strong>
+                        </td>
+                        <td style="width:50%"></td>
+                    </tr>
+
+                    <tr>
+                        <td><?php _e( 'License Key' ); ?></td>
+                        <td><input type="text" name="ycb_license_key" value="<?php if ( $ycb_settings['ycb_license_key'] ) { echo $ycb_settings['ycb_license_key']; } ?>"></td>
+                    </tr>
+
+                    <?php if( ! empty( $license ) || false != $license ) { ?>
+                        <tr>
+                            <td>
+                                <?php _e('Activate License'); ?>
+                            </td>
+                            <td>
+                                <?php 
+                                $expired = false;
+                                if ( $status !== false && $status == 'valid' ) { ?>
+                                    <?php wp_nonce_field( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ); ?>
+                                    <input type="submit" class="button-secondary" style="color:red;" name="deactivate_license" value="<?php _e('Deactivate License'); ?>"/><br/><br/>
+                                    <?php } else {
+                                    wp_nonce_field( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ); ?>
+                                    <input type="submit" class="button-secondary" name="activate_license" value="<?php _e('Activate License'); ?>" <?php if ( $expired ) { echo 'disabled'; } ?>>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    <tr>
+                        <td><?php _e( 'License Status' ); ?></td>
+                        <td>
+                        <?php 
+                        if ( false !== $status && $status == 'valid' ) {
+                            if ( ! $expired ) { ?>
+                                <span style="color:green"><strong><?php _e( 'Active.' ); ?></strong></span>
+                            <?php } else { ?>
+                                <span style="color:red"><strong><?php _e( 'Expired.' ); ?></strong></span>
+                            <?php } ?>
+
+                             <?php if ( ! $expired ) { _e( sprintf( 'Expires on %s', $expires ) ); } } ?>
+                    </td>
+
+                    </tr>
+
+
+
+                </table>
+            </div>
+
+            <?php
                 do_action("ycb_settings_area_below_hook", $ycb_settings);
             ?>
 
@@ -310,12 +391,99 @@ function ycb_save_settings_head(){
             $ycb_settings_array['ycb_badge_shape'] = 0;
         }
 
+        if ( isset( $_POST['ycb_license_key'] ) ) {
+            $ycb_settings_array['ycb_license_key'] = esc_attr( $_POST['ycb_license_key' ] );
+        } else {
+            $ycb_settings_array['ycb_license_key'] = '';
+        }
+
         $ycb_settings_array = apply_filters("ycb_save_settings_array_filter", $ycb_settings_array);
 
         update_option("ycb_primary_settings", maybe_serialize($ycb_settings_array));
 
         echo "<div class='updated'><p>".__("Settings have been saved")."</p></div>";
     }
+}
+
+function ycb_activate_license_key( $settings ) {
+
+    // activate license
+    if( isset( $_POST['activate_license'] ) ) {
+
+        // run a quick security check
+        if( ! check_admin_referer( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ) ) {
+            return; // get out if we didn't click the Activate button
+        }
+
+        // retrieve the license from the database
+        $license = trim( $settings['ycb_license_key'] );
+
+
+        // data to send in our API request
+        $api_params = array(
+            'edd_action' => 'activate_license',
+            'license'    => $license,
+            'item_id'    => YH_PLUGIN_ID, // The ID of the item in EDD
+            'url'        => home_url()
+        );
+
+        // Call the custom API.
+        $response = wp_remote_post( YOOHOO_STORE, array( 'timeout' => 15, 'sslverify' => true, 'body' => $api_params ) );
+
+
+        // make sure the response came back okay
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+
+            $message =  ( is_wp_error( $response ) && ! empty( $response->get_error_message() ) ) ? $response->get_error_message() : __( 'An error occurred, please try again.' );
+
+            yoohoo_admin_notice( $message, 'error is-dismissible' );
+
+        } else {
+
+            $license_data = json_decode( wp_remote_retrieve_body( $response ) );
+
+            $settings['ycb_license_status'] = $license_data->license;
+            $settings['ycb_license_expires'] = $license_data->expires;
+
+            update_option( "ycb_primary_settings", maybe_serialize( $settings ) );
+
+            return $license_data;
+
+        }
+    }
+
+    // Deactivate license key.
+    if ( isset( $_POST['deactivate_license'] ) ) {
+
+        if( ! check_admin_referer( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ) ) {
+            return; // get out if we didn't click the Activate button
+        }
+
+        $license = trim( $settings['ycb_license_key'] );
+
+        $api_params = array(
+            'edd_action' => 'deactivate_license',
+            'license' => $license,
+            'item_id' => YH_PLUGIN_ID, // the name of our product in EDD
+            'url' => home_url()
+        );
+
+        // Send the remote request
+        $response = wp_remote_post( YOOHOO_STORE, array( 'body' => $api_params, 'timeout' => 15, 'sslverify' => true ) );
+        
+        // if there's no erros in the post, just delete the option.
+        if ( ! is_wp_error( $response ) ) {
+            $license_data = json_decode( wp_remote_retrieve_body( $response ) );
+            unset( $settings['ycb_license_expires'] );
+            unset( $settings['ycb_license_status'] );
+            update_option( "ycb_primary_settings", maybe_serialize( $settings ) );
+
+            return $license_data;
+
+        }
+    }
+
+
 }
 /**
  * Custom Badges settings area
@@ -355,7 +523,7 @@ function ycb_custom_badges_check_header(){
 }
 
 /**
- * Custom abdges global option
+ * Custom badges global option
 */
 function ycb_custom_badge_global_options(){
     ycb_custom_badge_global_options_headers();

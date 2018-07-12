@@ -80,10 +80,9 @@ function ycb_custom_tags_database_tables(){
 function ycb_admin_menu() {
     $show_in_menu = current_user_can( 'manage_woocommerce' ) ? 'ycb_main_menu' : false;
 
-    add_menu_page( __('YooHoo Custom Badges'),  __('YooHoo Custom Badges'), 'manage_woocommerce', 'ycb_main_menu', 'ycb_custom_badges', plugin_dir_url( __FILE__ ) . '../assets/ycb-white-16.png');
+    add_menu_page( __('Custom Badges'),  __('Custom Badges'), 'manage_woocommerce', 'ycb_main_menu', 'ycb_custom_badges', plugin_dir_url( __FILE__ ) . '../assets/ycb-white-16.png');
 
     $discount_slug = add_submenu_page( $show_in_menu, __( 'Settings' ), __( 'Settings' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
-    //$custom_slug = add_submenu_page( $show_in_menu, __( 'Custom Badges' ), __( 'Custom Badges' ), 'manage_woocommerce', 'ycb_custom_badges', "ycb_custom_badges");
 
     do_action("ycb_admin_menu_below");
 }
