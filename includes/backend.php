@@ -38,9 +38,9 @@ function ycb_setting_area(){
                 <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/custom_badges_banner.png'; ?>" />
 
                 <div class='tab-container'>
-                    <div data-tab-id="tab_1" class='tab-clickable active'><?php _e("Global Settings"); ?></div>
-                    <div data-tab-id="tab_2" class='tab-clickable'><?php _e("Discount Badges"); ?></div>
-                    <div data-tab-id="tab_3" class='tab-clickable'><?php _e("License Settings"); ?></div>
+                    <div data-tab-id="tab_1" class='tab-clickable active'><?php _e( 'Global Settings', 'yoohoo-custom-badges'); ?></div>
+                    <div data-tab-id="tab_2" class='tab-clickable'><?php _e( 'Discount Badges', 'yoohoo-custom-badges' ); ?></div>
+                    <div data-tab-id="tab_3" class='tab-clickable'><?php _e( 'License Settings', 'yoohoo-custom-badges' ); ?></div>
 
                 </div>
             </div>
@@ -50,14 +50,14 @@ function ycb_setting_area(){
 
                     <tr>
                         <td style="width:50%">
-                            <strong><?php _e("General Options"); ?></strong>
+                            <strong><?php _e( 'General Options', 'yoohoo-custom-badges' ); ?></strong>
                         </td>
                         <td style="width:50%"></td>
                     </tr>
 
                     <tr>
                         <td>
-                            <label><?php _e("Hide Default WooCommerce 'Sale' tag"); ?>:</label>
+                            <label><?php _e( "Hide Default WooCommerce 'Sale' tag", 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="checkbox" value="<?php echo ( isset($ycb_settings["ycb_hide_default_sale_tag"]) && $ycb_settings["ycb_hide_default_sale_tag"] === "true" ? "true" : "" ); ?>" <?php echo ( isset($ycb_settings["ycb_hide_default_sale_tag"]) && $ycb_settings["ycb_hide_default_sale_tag"] === "true" ? "checked='checked'" : "" ); ?> name="ycb_hide_default_sale_tag" id="ycb_hide_default_sale_tag">
@@ -76,7 +76,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td style="width:50%">
-                            <strong><?php _e("Badge Shape"); ?></strong>
+                            <strong><?php _e( 'Badge Shape', 'yoohoo-custom-badges' ); ?></strong>
                         </td>
                         <td style="width:50%"></td>
                     </tr>
@@ -99,15 +99,15 @@ function ycb_setting_area(){
                                 }
                             ?>
                             <select id='ycb_badge_shape' name='ycb_badge_shape'>
-                                <option value='0' <?php echo($shape_setting === 0 || $shape_setting === false ? 'selected' : ''); ?> ><?php _e('Round'); ?></option>
-                                <option value='1' <?php echo($shape_setting === 1 ? 'selected' : ''); ?> ><?php _e('Square'); ?></option>
-                                <option value='2' <?php echo($shape_setting === 2 ? 'selected' : ''); ?> ><?php _e('Rounded Square'); ?></option>
-                                <option value='3' <?php echo($shape_setting === 3 ? 'selected' : ''); ?> ><?php _e('Banner Across Image (beta)'); ?></option>
+                                <option value='0' <?php echo($shape_setting === 0 || $shape_setting === false ? 'selected' : ''); ?> ><?php _e( 'Round', 'yoohoo-custom-badges' ); ?></option>
+                                <option value='1' <?php echo($shape_setting === 1 ? 'selected' : ''); ?> ><?php _e( 'Square', 'yoohoo-custom-badges' ); ?></option>
+                                <option value='2' <?php echo($shape_setting === 2 ? 'selected' : ''); ?> ><?php _e( 'Rounded Square', 'yoohoo-custom-badges' ); ?></option>
+                                <option value='3' <?php echo($shape_setting === 3 ? 'selected' : ''); ?> ><?php _e('Banner Across Image (beta)', 'yoohoo-custom-badges' ); ?></option>
                             </select>
                         </td>
                         <td>
-                            <small><em><?php _e('Preview'); ?></em></small>
-                            <div class='badge_shape_preview <?php echo $shape_class_default; ?>'>Yoohoo</div>
+                            <small><em><?php _e( 'Preview', 'yoohoo-custom-badges' ); ?></em></small>
+                            <div class='badge_shape_preview <?php echo $shape_class_default; ?>'><?php _e( 'Yoohoo', 'yoohoo-custom-badges' ); ?></div>
                         </td>
                     </tr>
 
@@ -118,7 +118,7 @@ function ycb_setting_area(){
                 <table class="widefat tab-content-table">
                     <tr>
                         <td style="width:50%">
-                            <strong><?php _e("Badge Styling"); ?></strong>
+                            <strong><?php _e( 'Badge Styling', 'yoohoo-custom-badges' ); ?></strong>
                         </td>
                         <td style="width:50%"></td>
                     </tr>
@@ -134,7 +134,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("10-20% Off Color"); ?>:</label>
+                            <label><?php _e( '10-20% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_0_20_color']) ? $ycb_settings['ycb_0_20_color'] : "#ED1C24" ); ?>" name="ycb_0_20_color" id="ycb_0_20_color">
@@ -143,7 +143,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("20-30% Off Color"); ?>:</label>
+                            <label><?php _e( '20-30% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_30_color']) ? $ycb_settings['ycb_30_color'] : "#ED1C24" ); ?>" name="ycb_30_color" id="ycb_30_color">
@@ -152,7 +152,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("30-40% Off Color"); ?>:</label>
+                            <label><?php _e( '30-40% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_20_40_color']) ? $ycb_settings['ycb_20_40_color'] : "#ED1C24" ); ?>" name="ycb_20_40_color" id="ycb_20_40_color">
@@ -161,7 +161,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("40-50% Off Color"); ?>:</label>
+                            <label><?php _e( '40-50% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_50_color']) ? $ycb_settings['ycb_50_color'] : "#ED1C24" ); ?>" name="ycb_50_color" id="ycb_50_color">
@@ -170,7 +170,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("50-60% Off Color"); ?>:</label>
+                            <label><?php _e( '50-60% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_40_60_color']) ? $ycb_settings['ycb_40_60_color'] : "#ED1C24" ); ?>" name="ycb_40_60_color" id="ycb_40_60_color">
@@ -179,7 +179,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("60-70% Off Color"); ?>:</label>
+                            <label><?php _e( '60-70% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_70_color']) ? $ycb_settings['ycb_70_color'] : "#ED1C24" ); ?>" name="ycb_70_color" id="ycb_70_color">
@@ -188,7 +188,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("70-80% Off Color"); ?>:</label>
+                            <label><?php _e( '70-80% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_60_80_color']) ? $ycb_settings['ycb_60_80_color'] : "#ED1C24" ); ?>" name="ycb_60_80_color" id="ycb_60_80_color">
@@ -199,7 +199,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("80-90% Off Color"); ?>:</label>
+                            <label><?php _e( '80-90% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_80_100_color']) ? $ycb_settings['ycb_80_100_color'] : "#ED1C24" ); ?>" name="ycb_80_100_color" id="ycb_80_100_color">
@@ -208,7 +208,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("90-100% Off Color"); ?>:</label>
+                            <label><?php _e( '90-100% Off Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_90_color']) ? $ycb_settings['ycb_90_color'] : "#ED1C24" ); ?>" name="ycb_90_color" id="ycb_90_color">
@@ -217,7 +217,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td>
-                            <label><?php _e("Text Color"); ?>:</label>
+                            <label><?php _e( 'Text Color', 'yoohoo-custom-badges' ); ?>:</label>
                         </td>
                         <td>
                             <input type="color" value="<?php echo ( isset($ycb_settings['ycb_text_color']) ? $ycb_settings['ycb_text_color'] : "#FFFFFF" ); ?>" name="ycb_text_color" id="ycb_text_color">
@@ -254,7 +254,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td style="width:50%">
-                            <strong><?php _e("License Settings"); ?></strong>
+                            <strong><?php _e( 'License Settings', 'yoohoo-custom-badges' ); ?></strong>
                         </td>
                         <td style="width:50%"></td>
                     </tr>
@@ -267,33 +267,33 @@ function ycb_setting_area(){
                     <?php if( ! empty( $license ) || false != $license ) { ?>
                         <tr>
                             <td>
-                                <?php _e('Activate License'); ?>
+                                <?php _e( 'Activate License', 'yoohoo-custom-badges' ); ?>
                             </td>
                             <td>
                                 <?php
                                 $expired = false;
                                 if ( $status !== false && $status == 'valid' ) { ?>
                                     <?php wp_nonce_field( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ); ?>
-                                    <input type="submit" class="button-secondary" style="color:red;" name="deactivate_license" value="<?php _e('Deactivate License'); ?>"/><br/><br/>
+                                    <input type="submit" class="button-secondary" style="color:red;" name="deactivate_license" value="<?php _e( 'Deactivate License', 'yoohoo-custom-badges' ); ?>"/><br/><br/>
                                     <?php } else {
                                     wp_nonce_field( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ); ?>
-                                    <input type="submit" class="button-secondary" name="activate_license" value="<?php _e('Activate License'); ?>" <?php if ( $expired ) { echo 'disabled'; } ?>>
+                                    <input type="submit" class="button-secondary" name="activate_license" value="<?php _e( 'Activate License', 'yoohoo-custom-badges' ); ?>" <?php if ( $expired ) { echo 'disabled'; } ?>>
                                 <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>
                     <tr>
-                        <td><?php _e( 'License Status' ); ?></td>
+                        <td><?php _e( 'License Status', 'yoohoo-custom-badges' ); ?></td>
                         <td>
                         <?php
                         if ( false !== $status && $status == 'valid' ) {
                             if ( ! $expired ) { ?>
-                                <span style="color:green"><strong><?php _e( 'Active.' ); ?></strong></span>
+                                <span style="color:green"><strong><?php _e( 'Active.', 'yoohoo-custom-badges' ); ?></strong></span>
                             <?php } else { ?>
-                                <span style="color:red"><strong><?php _e( 'Expired.' ); ?></strong></span>
+                                <span style="color:red"><strong><?php _e( 'Expired.', 'yoohoo-custom-badges' ); ?></strong></span>
                             <?php } ?>
 
-                             <?php if ( ! $expired ) { _e( sprintf( 'Expires on %s', $expires ) ); } } ?>
+                             <?php if ( ! $expired ) { _e( sprintf( 'Expires on %s', $expires ), 'yoohoo-custom-badges' ); } } ?>
                     </td>
 
                     </tr>
@@ -313,7 +313,7 @@ function ycb_setting_area(){
             <div class='yoohoo_footer'>
                 <div class='company'>
                     <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/yoohooplugins-logo-white.png'; ?>" />
-                    <input type="submit" class="button-primary" value="<?php _e("Save"); ?>" name="ycb_save_settings">
+                    <input type="submit" class="button-primary" value="<?php _e( 'Save', 'yoohoo-custom-badges' ); ?>" name="ycb_save_settings">
                 </div>
             </div>
         </form>
@@ -401,7 +401,7 @@ function ycb_save_settings_head(){
 
         update_option("ycb_primary_settings", maybe_serialize($ycb_settings_array));
 
-        echo "<div class='notice notice-success is-dismissible'><p>".__("Settings have been saved")."</p></div>";
+        echo "<div class='notice notice-success is-dismissible'><p>".__( 'Settings have been saved', 'yoohoo-custom-badges' )."</p></div>";
     }
 }
 
@@ -434,9 +434,7 @@ function ycb_activate_license_key( $settings ) {
         // make sure the response came back okay
         if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 
-            $message =  ( is_wp_error( $response ) && ! empty( $response->get_error_message() ) ) ? $response->get_error_message() : __( 'An error occurred, please try again.' );
-
-            yoohoo_admin_notice( $message, 'error is-dismissible' );
+            $message =  ( is_wp_error( $response ) && ! empty( $response->get_error_message() ) ) ? $response->get_error_message() : __( 'An error occurred, please try again.', 'yoohoo-custom-badges' );
 
         } else {
 
@@ -492,12 +490,12 @@ function ycb_custom_badges(){
     ?>
     <div class="yoohoo_wrap wrap">
         <div class='header'>
-            <h3><?php _e("Custom Badges"); ?> </h3>
+            <h3><?php _e( 'Custom Badges', 'yoohoo-custom-badges' ); ?> </h3>
         </div>
         <?php ycb_custom_badges_check_header(); ycb_custom_badges_action_check(); ycb_custom_badges_table(); ?>
         <div class='yoohoo_footer'>
             <div class='company'>
-                <a href="admin.php?page=ycb_main_menu&action=new" class="button button-primary"><?php _e("Add New"); ?></a>
+                <a href="admin.php?page=ycb_main_menu&action=new" class="button button-primary"><?php _e( 'Add New', 'yoohoo-custom-badges' ); ?></a>
             </div>
         </div>
     </div>
@@ -535,14 +533,14 @@ function ycb_custom_badge_global_options(){
 
             <tr>
                 <td style="width:50%">
-                    <strong><?php _e("Global Options"); ?></strong>
+                    <strong><?php _e( 'Global Options', 'yoohoo-custom-badges' ); ?></strong>
                 </td>
                 <td style="width:50%"></td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Hide Default WooCommerce 'Sale' tag where custom badges appears"); ?>:</label>
+                    <label><?php _e( "Hide Default WooCommerce 'Sale' tag where custom badges appears", 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <input type="checkbox" value="<?php echo ( isset($ycb_global_options["ycb_hide_default_sale_tag"]) && $ycb_global_options["ycb_hide_default_sale_tag"] === "true" ? "true" : "" ); ?>" <?php echo ( isset($ycb_global_options["ycb_hide_default_sale_tag"]) && $ycb_global_options["ycb_hide_default_sale_tag"] === "true" ? "checked='checked'" : "" ); ?> name="ycb_hide_default_sale_tag" id="ycb_hide_default_sale_tag"> <small><?php _e("Hides default sales tag on the page"); ?></small>
@@ -551,7 +549,7 @@ function ycb_custom_badge_global_options(){
 
             <tr>
                 <td>
-                    <input name="ycb_save_global_options" class="button button-primary" value="<?php _e("Save Global Options"); ?>" type="submit">
+                    <input name="ycb_save_global_options" class="button button-primary" value="<?php _e( 'Save Global Options', 'yoohoo-custom-badges'); ?>" type="submit">
                 </td>
                 <td></td>
             </tr>
@@ -616,23 +614,23 @@ function ycb_custom_action_add_new_form(){
         <table class="widefat">
             <tr>
                 <td style="width:30%">
-                    <strong><?php _e("New Custom Badge"); ?></strong>
+                    <strong><?php _e( 'New Custom Badge', 'yoohoo-custom-badges' ); ?></strong>
                 </td>
                 <td style="width:70%"></td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Name"); ?>:</label>
+                    <label><?php _e( 'Name', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
-                    <input name="ycb_custom_badge_new_name" type="text" style="width:70%;" placeholder="<?php _e("This is only for identification, will not be used in the badge"); ?>" <?php echo (isset($_POST['ycb_custom_badge_new_name']) ? "value='" . $_POST["ycb_custom_badge_new_name"] . "'" : ""); ?> >
+                    <input name="ycb_custom_badge_new_name" type="text" style="width:70%;" placeholder="<?php _e('This is only for identification, will not be used in the badge', 'yoohoo-custom-badges' ); ?>" <?php echo (isset($_POST['ycb_custom_badge_new_name']) ? "value='" . $_POST["ycb_custom_badge_new_name"] . "'" : ""); ?> >
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Category"); ?>:</label>
+                    <label><?php _e( 'Category', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <?php ycb_get_woo_categories_select("ycb_custom_badge_new_cat", (isset($_POST['ycb_custom_badge_new_cat']) ? $_POST['ycb_custom_badge_new_cat'] : false) , "width:70%;")?>
@@ -641,21 +639,21 @@ function ycb_custom_action_add_new_form(){
 
              <tr>
                 <td>
-                    <label><?php _e("Content"); ?>:</label>
+                    <label><?php _e( 'Content', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
-                    <input name="ycb_custom_badge_new_content" type="text" class='inline-input'  id="ycb_custom_preview_content" style="width:70%;" placeholder="<?php _e("Shown in your badge"); ?>" <?php echo (isset($_POST['ycb_custom_badge_new_content']) ? "value='" . $_POST["ycb_custom_badge_new_content"] . "'" : ""); ?> >
+                    <input name="ycb_custom_badge_new_content" type="text" class='inline-input'  id="ycb_custom_preview_content" style="width:70%;" placeholder="<?php _e( 'Shown in your badge', 'yoohoo-custom-badges' ); ?>" <?php echo (isset($_POST['ycb_custom_badge_new_content']) ? "value='" . $_POST["ycb_custom_badge_new_content"] . "'" : ""); ?> >
 
                     <?php ycb_create_emoji_css_picker('ycb_custom_preview_content'); ?>
 
                     <br>
-                    <small><em><?php _e('Tip: You can add Font-Awesome icons by using our custom shortcodes (ex: %%fas fa-check%%)');?></em></small>
+                    <small><em><?php _e( 'Tip: You can add Font-Awesome icons by using our custom shortcodes (ex: %%fas fa-check%%)', 'yoohoo-custom-badges' );?></em></small>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Text Color"); ?>:</label>
+                    <label><?php _e( 'Text Color', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <input name="ycb_custom_badge_new_text_color" type="color" id="ycb_custom_preview_color" <?php echo (isset($_POST['ycb_custom_badge_new_text_color']) ? "value='" . $_POST["ycb_custom_badge_new_text_color"] . "'" : ""); ?>>
@@ -664,7 +662,7 @@ function ycb_custom_action_add_new_form(){
 
             <tr>
                 <td>
-                    <label><?php _e("Badge Color"); ?>:</label>
+                    <label><?php _e( 'Badge Color', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <input name="ycb_custom_badge_new_badge_color" type="color" id="ycb_custom_preview_bg_color" <?php echo (isset($_POST['ycb_custom_badge_new_badge_color']) ? "value='" . $_POST["ycb_custom_badge_new_badge_color"] . "'" : ""); ?>>
@@ -673,7 +671,7 @@ function ycb_custom_action_add_new_form(){
 
             <tr>
                 <td>
-                    <label><?php _e("Preview"); ?>:</label>
+                    <label><?php _e( 'Preview', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <?php ycb_custom_badge_previewer("#ycb_custom_preview_content", "#ycb_custom_preview_color", "#ycb_custom_preview_bg_color"); ?>
@@ -682,8 +680,8 @@ function ycb_custom_action_add_new_form(){
 
             <tr>
                 <td>
-                    <input name="ycb_custom_badge_new_add" class="button button-primary" value="<?php _e("Add Badge"); ?>" type="submit">
-                    <a href="admin.php?page=ycb_main_menu" class="button"><?php _e("Close"); ?></a>
+                    <input name="ycb_custom_badge_new_add" class="button button-primary" value="<?php _e('Add Badge', 'yoohoo-custom-badges' ); ?>" type="submit">
+                    <a href="admin.php?page=ycb_main_menu" class="button"><?php _e( 'Close', 'yoohoo-custom-badges' ); ?></a>
                 </td>
                 <td></td>
             </tr>
@@ -705,23 +703,23 @@ function ycb_custom_action_edit_form($badge_id){
         <table class="widefat">
             <tr>
                 <td style="width:30%">
-                    <strong><?php _e("Edit Custom Badge"); ?></strong>
+                    <strong><?php _e( 'Edit Custom Badge', 'yoohoo-custom-badges' ); ?></strong>
                 </td>
                 <td style="width:70%"></td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Name"); ?>:</label>
+                    <label><?php _e( 'Name', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
-                    <input name="ycb_custom_badge_edit_name" type="text" style="width:70%;" placeholder="<?php _e("This is only for identification, will not be used in the badge"); ?>" value="<?php echo $badge_data->name; ?>" >
+                    <input name="ycb_custom_badge_edit_name" type="text" style="width:70%;" placeholder="<?php _e('This is only for identification, will not be used in the badge', 'yoohoo-custom-badges' ); ?>" value="<?php echo $badge_data->name; ?>" >
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Category"); ?>:</label>
+                    <label><?php _e( 'Category', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <?php ycb_get_woo_categories_select("ycb_custom_badge_edit_cat", $badge_data->cat_id , "width:70%;")?>
@@ -730,21 +728,21 @@ function ycb_custom_action_edit_form($badge_id){
 
              <tr>
                 <td>
-                    <label><?php _e("Content"); ?>:</label>
+                    <label><?php _e( 'Content', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
-                    <input name="ycb_custom_badge_edit_content" id="ycb_custom_preview_content" class='inline-input' type="text" style="width:70%;" placeholder="<?php _e("Shown in your badge"); ?>" value="<?php echo $badge_data->content; ?>" >
+                    <input name="ycb_custom_badge_edit_content" id="ycb_custom_preview_content" class='inline-input' type="text" style="width:70%;" placeholder="<?php _e( 'Shown in your badge', 'yoohoo-custom-badges' ); ?>" value="<?php echo $badge_data->content; ?>" >
 
                     <?php ycb_create_emoji_css_picker('ycb_custom_preview_content'); ?>
 
                     <br>
-                    <small><em><?php _e('Tip: You can add Font-Awesome icons by using our custom shortcodes (ex: %%fas fa-check%%)');?></em></small>
+                    <small><em><?php _e( 'Tip: You can add Font-Awesome icons by using our custom shortcodes (ex: %%fas fa-check%%)', 'yoohoo-custom-badges');?></em></small>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <label><?php _e("Text Color"); ?>:</label>
+                    <label><?php _e( 'Text Color', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <input name="ycb_custom_badge_edit_text_color" id="ycb_custom_preview_color" type="color" value="<?php echo $badge_data->color; ?>" >
@@ -753,7 +751,7 @@ function ycb_custom_action_edit_form($badge_id){
 
             <tr>
                 <td>
-                    <label><?php _e("Badge Color"); ?>:</label>
+                    <label><?php _e( 'Badge Color', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <input name="ycb_custom_badge_edit_badge_color" id="ycb_custom_preview_bg_color" type="color" value="<?php echo $badge_data->bg_color; ?>" >
@@ -764,7 +762,7 @@ function ycb_custom_action_edit_form($badge_id){
 
             <tr>
                 <td>
-                    <label><?php _e("Preview"); ?>:</label>
+                    <label><?php _e( 'Preview', 'yoohoo-custom-badges' ); ?>:</label>
                 </td>
                 <td>
                     <?php ycb_custom_badge_previewer("#ycb_custom_preview_content", "#ycb_custom_preview_color", "#ycb_custom_preview_bg_color"); ?>
@@ -773,8 +771,8 @@ function ycb_custom_action_edit_form($badge_id){
 
             <tr>
                 <td>
-                    <input name="ycb_custom_badge_edit" class="button button-primary" value="<?php _e("Edit Badge"); ?>" type="submit">
-                    <a href="admin.php?page=ycb_main_menu" class="button"><?php _e("Close"); ?></a>
+                    <input name="ycb_custom_badge_edit" class="button button-primary" value="<?php _e( 'Edit Badge', 'yoohoo-custom-badges' ); ?>" type="submit">
+                    <a href="admin.php?page=ycb_main_menu" class="button"><?php _e( 'Close', 'yoohoo-custom-badges' ); ?></a>
                 </td>
                 <td></td>
             </tr>
@@ -785,7 +783,7 @@ function ycb_custom_action_edit_form($badge_id){
     <script>
     jQuery(function(){
         jQuery("input[name=ycb_custom_badge_edit_name],input[name=ycb_custom_badge_edit_cat],input[name=ycb_custom_badge_edit_content],input[name=ycb_custom_badge_edit_text_color],input[name=ycb_custom_badge_edit_badge_color]").on("change", function(){
-            jQuery("input[name=ycb_custom_badge_edit]").val("<?php _e('Save Changes'); ?>");
+            jQuery("input[name=ycb_custom_badge_edit]").val("<?php _e( 'Save Changes', 'yoohoo-custom-badges' ); ?>");
         });
     });
     </script>
@@ -800,14 +798,14 @@ function ycb_custom_action_delete_prompt($badge_id){
     <table class="widefat">
         <tr>
             <td style="width:30%">
-                <strong><?php _e("Are you sure you want to delete this badge?"); ?></strong>
+                <strong><?php _e( 'Are you sure you want to delete this badge?', 'yoohoo-custom-badges' ); ?></strong>
             </td>
             <td style="width:70%"></td>
         </tr>
         <tr>
             <td>
-                <a href="admin.php?page=ycb_main_menu&action=confirm_delete&id=<?php echo $badge_id; ?>" class="button"><?php _e("Confirm"); ?></a>
-                <a href="admin.php?page=ycb_main_menu" class="button"><?php _e("Cancel"); ?></a>
+                <a href="admin.php?page=ycb_main_menu&action=confirm_delete&id=<?php echo $badge_id; ?>" class="button"><?php _e( 'Confirm', 'yoohoo-custom-badges' ); ?></a>
+                <a href="admin.php?page=ycb_main_menu" class="button"><?php _e( 'Cancel', 'yoohoo-custom-badges' ); ?></a>
             </td>
             <td></td>
         </tr>
@@ -824,7 +822,7 @@ function ycb_custom_action_delete_confirm($badge_id){
 
     $wpdb->query("DELETE FROM `$ycb_custom_badges_table` WHERE `id` = '$badge_id'");
 
-    echo "<div class='error'><p>".__("Badge Deleted") . "</p></div>";
+    echo "<div class='error'><p>".__( 'Badge Deleted', 'yoohoo-custom-badges' ) . "</p></div>";
 }
 
 /**
@@ -851,7 +849,7 @@ function ycb_custom_badge_previewer($badge_title_element, $badge_color_element, 
         <span style="display: block;text-align: center;line-height: 47px; padding-left:10px; padding-right:10px;" id="badge_preview_content"></span>
     </span>
     <br>
-    <small><?php _e("Preview results may vary, as site styling may influence results"); ?></small>
+    <small><?php _e( 'Preview results may vary, as site styling may influence results', 'yoohoo-custom-badges' ); ?></small>
     <script>
         jQuery(function(){
             jQuery(window).load(function(){
@@ -923,9 +921,9 @@ function ycb_custom_badges_table(){
 
     if( $custom_badges !== false ){
         echo "<tr>";
-        echo "<td><strong>" . __("ID") . "</strong></td>";
-        echo "<td><strong>" . __("Name") . "</strong></td>";
-        echo "<td><strong>" . __("Action") . "</strong></td>";
+        echo "<td><strong>" . __( 'ID', 'yoohoo-custom-badges' ) . "</strong></td>";
+        echo "<td><strong>" . __( 'Name', 'yoohoo-custom-badges' ) . "</strong></td>";
+        echo "<td><strong>" . __( 'Action', 'yoohoo-custom-badges' ) . "</strong></td>";
         echo "</tr>";
         foreach ($custom_badges as $key => $badge) {
             echo "<tr>";
@@ -933,15 +931,15 @@ function ycb_custom_badges_table(){
             echo "<td>" . $badge->name . "</td>";
             echo "<td>";
 
-            echo "<a href='admin.php?page=ycb_main_menu&action=edit&id=".$badge->id."' class='button'>" . __("Edit") . "</a> ";
-            echo "<a href='admin.php?page=ycb_main_menu&action=delete&id=".$badge->id."' class='button'>" . __("Delete") . "</a>";
+            echo "<a href='admin.php?page=ycb_main_menu&action=edit&id=".$badge->id."' class='button'>" . __( 'Edit', 'yoohoo-custom-badges' ) . "</a> ";
+            echo "<a href='admin.php?page=ycb_main_menu&action=delete&id=".$badge->id."' class='button'>" . __('Delete', 'yoohoo-custom-badges' ) . "</a>";
 
             echo "</td>";
             echo "</tr>";
         }
 
     } else {
-        echo "<tr><td>" . __("No Results Found...") . "</td><td></td></tr>";
+        echo "<tr><td>" . __( 'No badges found. Please add a new badge.', 'yoohoo-custom-badges' ) . "</td><td></td></tr>";
     }
 
     echo '</table>';
@@ -1018,31 +1016,31 @@ function ycb_custom_badge_add_new_insert(){
                             );
 
 
-                            echo "<div class='updated'><p>".__("Success")."</p></div>";
+                            echo "<div class='updated'><p>".__( 'Success', 'yoohoo-custom-badges' )."</p></div>";
                             unset($_POST);
                         } else {
                             //No Badge Color
-                            $error_found = __("Please select a badge color");
+                            $error_found = __( 'Please select a badge color', 'yoohoo-custom-badges' );
                         }
                     } else {
                         //No Text Color
-                        $error_found = __("Please select a badge text color");
+                        $error_found = __( 'Please select a badge text color', 'yoohoo-custom-badges' );
                     }
                 } else {
                     //No Content
-                    $error_found = __("Please enter content for your badge");
+                    $error_found = __( 'Please enter content for your badge', 'yoohoo-custom-badges' );
                 }
             } else {
                 //No Cat
-                $error_found = __("Please select a product category for your badge");
+                $error_found = __( 'Please select a product category for your badge', 'yoohoo-custom-badges' );
             }
         } else {
             //No Name error
-            $error_found = __("Please enter a name for your badge");
+            $error_found = __( 'Please enter a name for your badge', 'yoohoo-custom-badges' );
         }
 
         if($error_found !== false){
-             echo "<div class='error'><p>".__("Error").": ".$error_found."</p></div>";
+             echo "<div class='error'><p>".__( 'Error', 'yoohoo-custom-badges' ).": ".$error_found."</p></div>";
         }
     }
 }
@@ -1078,31 +1076,31 @@ function ycb_custom_badge_edit_update(){
                                 "
                             );
 
-                            echo "<div class='updated'><p>".__("Success")."</p></div>";
+                            echo "<div class='updated'><p>".__( 'Success', 'yoohoo-custom-badges' )."</p></div>";
                             unset($_POST);
                         } else {
                             //No Badge Color
-                            $error_found = __("Please select a badge color");
+                            $error_found = __( 'Please select a badge color', 'yoohoo-custom-badges' );
                         }
                     } else {
                         //No Text Color
-                        $error_found = __("Please select a badge text color");
+                        $error_found = __( 'Please select a badge text color', 'yoohoo-custom-badges' );
                     }
                 } else {
                     //No Content
-                    $error_found = __("Please enter content for your badge");
+                    $error_found = __( 'Please enter content for your badge', 'yoohoo-custom-badges' );
                 }
             } else {
                 //No Cat
-                $error_found = __("Please select a product category for your badge");
+                $error_found = __( 'Please select a product category for your badge', 'yoohoo-custom-badges' );
             }
         } else {
             //No Name error
-            $error_found = __("Please enter a name for your badge");
+            $error_found = __( 'Please enter a name for your badge', 'yoohoo-custom-badges' );
         }
 
         if($error_found !== false){
-             echo "<div class='error'><p>".__("Error").": ".$error_found."</p></div>";
+             echo "<div class='error'><p>".__('Error', 'yoohoo-custom-badges' ).": ".$error_found."</p></div>";
         }
     }
 }
@@ -1120,7 +1118,7 @@ function ycb_create_emoji_css_picker($for_id){
                 <!-- GENERATED DYNAMICALLY -->
             </div>
             <div class='emoji_search'>
-                <input type='text' class='emoji_search_input' placeholder="<?php _e('Search (Press Enter)'); ?>" >
+                <input type='text' class='emoji_search_input' placeholder="<?php _e('Search (Press Enter)', 'yoohoo-custom-badges' ); ?>" >
             </div>
         </div>
     <?php

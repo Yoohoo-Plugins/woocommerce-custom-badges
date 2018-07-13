@@ -17,7 +17,7 @@ function ycb_activate() {
 
 /**
  * Couple of quick init checks
-*/
+ */
 function ycb_init(){
     ycb_check_theme_framework_integrations();
     ycb_register_actions_filters();
@@ -25,8 +25,16 @@ function ycb_init(){
 add_action("init", "ycb_init");
 
 /**
+ * Load plugin text domain
+ */
+function ycb_load_text_domain() {
+    load_plugin_textdomain( 'yoohoo-custom-badges', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'ycb_load_text_domain' );
+
+/**
  * Check if any known theme integrations are at play
-*/
+ */
 function ycb_check_theme_framework_integrations(){
     global $ycb_using_flatsome;
     //Check if user is using flatsome
@@ -38,7 +46,7 @@ function ycb_check_theme_framework_integrations(){
 
 /**
  * Register all the pretty product hooks
-*/
+ */
 function ycb_register_actions_filters(){
     global $ycb_using_flatsome;
     if($ycb_using_flatsome){
@@ -53,7 +61,7 @@ function ycb_register_actions_filters(){
 /**
  * Generates custom badges tables
  * Will later hold other tables if needed
-*/
+ */
 function ycb_custom_tags_database_tables(){
     global $ycb_custom_badges_table, $wpdb;
 
@@ -80,13 +88,13 @@ function ycb_custom_tags_database_tables(){
 function ycb_admin_menu() {
     $show_in_menu = current_user_can( 'manage_woocommerce' ) ? 'ycb_main_menu' : false;
 
-    add_menu_page( __('Custom Badges'),  __('Custom Badges'), 'manage_woocommerce', 'ycb_main_menu', 'ycb_custom_badges', plugin_dir_url( __FILE__ ) . '../assets/ycb-white-16.png');
+    add_menu_page( __('Custom Badges', 'yoohoo-custom-badges' ),  __( 'Custom Badges', 'yoohoo-custom-badges' ), 'manage_woocommerce', 'ycb_main_menu', 'ycb_custom_badges', plugin_dir_url( __FILE__ ) . '../assets/ycb-white-16.png');
 
-    $discount_slug = add_submenu_page( $show_in_menu, __( 'Sale Badges' ), __( 'Sale Badges' ), 'manage_woocommerce', 'ycb_primary_settings#tab_2', "ycb_setting_area");
+    $discount_slug = add_submenu_page( $show_in_menu, __( 'Sale Badges', 'yoohoo-custom-badges' ), __( 'Sale Badges', 'yoohoo-custom-badges' ), 'manage_woocommerce', 'ycb_primary_settings#tab_2', "ycb_setting_area");
 
-    $settings_slug = add_submenu_page( $show_in_menu, __( 'Settings' ), __( 'Settings' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
+    $settings_slug = add_submenu_page( $show_in_menu, __( 'Settings', 'yoohoo-custom-badges' ), __( 'Settings', 'yoohoo-custom-badges' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
 
-    $license_slug = add_submenu_page( $show_in_menu, __( 'License' ), __( 'License' ), 'manage_woocommerce', 'ycb_primary_settings#tab_3', "ycb_setting_area");
+    $license_slug = add_submenu_page( $show_in_menu, __( 'License', 'yoohoo-custom-badges' ), __( 'License', 'yoohoo-custom-badges' ), 'manage_woocommerce', 'ycb_primary_settings#tab_3', "ycb_setting_area");
 
     do_action("ycb_admin_menu_below");
 }
@@ -132,7 +140,7 @@ function ycb_get_settings(){
 
 /**
  * Custom badges, get options
-*/
+ */
 function ycb_custom_badge_get_global_options(){
     $ycb_settings = get_option("ycb_custom_badge_global_options", false);
     if($ycb_settings === false){
@@ -149,7 +157,7 @@ function ycb_custom_badge_get_global_options(){
 
 /**
  * Get the class associated with the badge shape setting
-*/
+ */
 function ycb_get_badge_shape_class($is_admin = false, $ycb_settings = false){
     if($ycb_settings === false){ $ycb_settings = ycb_get_settings(); }
 
