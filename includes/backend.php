@@ -401,7 +401,7 @@ function ycb_save_settings_head(){
 
         update_option("ycb_primary_settings", maybe_serialize($ycb_settings_array));
 
-        echo "<div class='updated'><p>".__("Settings have been saved")."</p></div>";
+        echo "<div class='notice notice-success is-dismissible'><p>".__("Settings have been saved")."</p></div>";
     }
 }
 

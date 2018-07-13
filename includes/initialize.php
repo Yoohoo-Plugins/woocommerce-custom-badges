@@ -82,9 +82,9 @@ function ycb_admin_menu() {
 
     add_menu_page( __('Custom Badges'),  __('Custom Badges'), 'manage_woocommerce', 'ycb_main_menu', 'ycb_custom_badges', plugin_dir_url( __FILE__ ) . '../assets/ycb-white-16.png');
 
-    $settings_slug = add_submenu_page( $show_in_menu, __( 'Settings' ), __( 'Settings' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
-
     $discount_slug = add_submenu_page( $show_in_menu, __( 'Sale Badges' ), __( 'Sale Badges' ), 'manage_woocommerce', 'ycb_primary_settings#tab_2', "ycb_setting_area");
+
+    $settings_slug = add_submenu_page( $show_in_menu, __( 'Settings' ), __( 'Settings' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
 
     $license_slug = add_submenu_page( $show_in_menu, __( 'License' ), __( 'License' ), 'manage_woocommerce', 'ycb_primary_settings#tab_3', "ycb_setting_area");
 
