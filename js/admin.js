@@ -1,5 +1,13 @@
 jQuery(function(){
+    jQuery(window).load(function(){
+        ycb_eval_url_hash();
+    });
+
     jQuery(document).ready(function(){
+        jQuery('#toplevel_page_ycb_main_menu ul li').on('click', function(){
+            setTimeout(ycb_eval_url_hash, 400);
+        });
+
         jQuery(".yoohoo_wrap .tab-container .tab-clickable").on("click", function(){
             jQuery(".tab-clickable").removeClass('active');
             jQuery(this).addClass('active');
@@ -7,6 +15,8 @@ jQuery(function(){
             let target_tab = jQuery(this).attr('data-tab-id');
             jQuery("[id^=tab_]").hide();
             jQuery("#" + target_tab).show();
+
+            window.location.hash = target_tab;
         });
 
         jQuery('#ycb_badge_shape').on('change', function(){
@@ -29,4 +39,16 @@ jQuery(function(){
             }
         });
     });
+
+    function ycb_eval_url_hash(){
+        if(typeof window.location.hash !== 'undefined' && window.location.hash !== ''){
+            let active_tab = window.location.hash.replace('#', '');
+            jQuery('.tab-clickable[data-tab-id=' + active_tab + ']').click();
+
+            if(jQuery('.tab-clickable[data-tab-id=' + active_tab + ']').length > 0 && active_tab !== 'tab_1'){
+                jQuery('#toplevel_page_ycb_main_menu ul li').removeClass('current');
+                jQuery('#toplevel_page_ycb_main_menu ul').find('a[href*=' + active_tab + ']').parent().addClass('current');
+            }
+        };
+    }
 });

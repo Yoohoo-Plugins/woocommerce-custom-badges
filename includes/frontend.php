@@ -16,6 +16,7 @@ function ycb_frontend_enqueue($hook) {
         wp_enqueue_style( 'ycb_frontend_fa_css', plugin_dir_url(__FILE__) . '../css/fa.css' );
         wp_enqueue_style( 'ycb_frontend_emoji_css', plugin_dir_url(__FILE__) . '../css/emoji.css' );
 
+       wp_enqueue_script( 'ycb_frontend_js', plugin_dir_url(__FILE__) . '../js/frontend.js', array('jquery') );
 
         $sale_tag_overrides = ycb_get_default_sales_tag_style_overrides();
         wp_add_inline_style( 'ycb_frontend_css', $sale_tag_overrides );

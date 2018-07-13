@@ -82,7 +82,11 @@ function ycb_admin_menu() {
 
     add_menu_page( __('Custom Badges'),  __('Custom Badges'), 'manage_woocommerce', 'ycb_main_menu', 'ycb_custom_badges', plugin_dir_url( __FILE__ ) . '../assets/ycb-white-16.png');
 
-    $discount_slug = add_submenu_page( $show_in_menu, __( 'Settings' ), __( 'Settings' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
+    $settings_slug = add_submenu_page( $show_in_menu, __( 'Settings' ), __( 'Settings' ), 'manage_woocommerce', 'ycb_primary_settings', "ycb_setting_area");
+
+    $discount_slug = add_submenu_page( $show_in_menu, __( 'Sale Badges' ), __( 'Sale Badges' ), 'manage_woocommerce', 'ycb_primary_settings#tab_2', "ycb_setting_area");
+
+    $license_slug = add_submenu_page( $show_in_menu, __( 'License' ), __( 'License' ), 'manage_woocommerce', 'ycb_primary_settings#tab_3', "ycb_setting_area");
 
     do_action("ycb_admin_menu_below");
 }
@@ -114,7 +118,10 @@ function ycb_get_settings(){
 
         $ycb_settings['ycb_text_color'] = "#FFFFFF";
         $ycb_settings['ycb_custom_css'] = "";
-        $ycb_settings_array['ycb_badge_shape'] = 0;
+        $ycb_settings['ycb_badge_shape'] = 0;
+
+        $ycb_settings['ycb_license_key'] = '';
+        $ycb_settings['ycb_license_expires'] = '';
 
         $ycb_settings = apply_filters("ycb_default_settings_array", $ycb_settings);
     } else {

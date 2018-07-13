@@ -102,7 +102,7 @@ function ycb_setting_area(){
                                 <option value='0' <?php echo($shape_setting === 0 || $shape_setting === false ? 'selected' : ''); ?> ><?php _e('Round'); ?></option>
                                 <option value='1' <?php echo($shape_setting === 1 ? 'selected' : ''); ?> ><?php _e('Square'); ?></option>
                                 <option value='2' <?php echo($shape_setting === 2 ? 'selected' : ''); ?> ><?php _e('Rounded Square'); ?></option>
-                                <option value='3' <?php echo($shape_setting === 3 ? 'selected' : ''); ?> ><?php _e('Banner'); ?></option>
+                                <option value='3' <?php echo($shape_setting === 3 ? 'selected' : ''); ?> ><?php _e('Banner Across Image (beta)'); ?></option>
                             </select>
                         </td>
                         <td>
@@ -229,8 +229,8 @@ function ycb_setting_area(){
             <?php
 
             $license = isset( $ycb_settings['ycb_license_key'] ) ? $ycb_settings['ycb_license_key'] : '';
-            
-            $expires = isset( $license_activation ) ? $license_activation->expires : $ycb_settings[ 'ycb_license_expires'];
+
+            $expires = isset( $license_activation ) ? $license_activation->expires : isset($ycb_settings['ycb_license_expires']) ? $ycb_settings[ 'ycb_license_expires'] : '';
 
             if ( isset( $license_activation ) ) {
                 $status = $license_activation->license;
@@ -261,7 +261,7 @@ function ycb_setting_area(){
 
                     <tr>
                         <td><?php _e( 'License Key' ); ?></td>
-                        <td><input type="text" name="ycb_license_key" value="<?php if ( $ycb_settings['ycb_license_key'] ) { echo $ycb_settings['ycb_license_key']; } ?>"></td>
+                        <td><input type="text" name="ycb_license_key" value="<?php echo(isset($ycb_settings['ycb_license_key']) ? $ycb_settings['ycb_license_key'] : '') ; ?>"></td>
                     </tr>
 
                     <?php if( ! empty( $license ) || false != $license ) { ?>
@@ -270,7 +270,7 @@ function ycb_setting_area(){
                                 <?php _e('Activate License'); ?>
                             </td>
                             <td>
-                                <?php 
+                                <?php
                                 $expired = false;
                                 if ( $status !== false && $status == 'valid' ) { ?>
                                     <?php wp_nonce_field( 'yoohoo_license_nonce', 'yoohoo_license_nonce' ); ?>
@@ -285,7 +285,7 @@ function ycb_setting_area(){
                     <tr>
                         <td><?php _e( 'License Status' ); ?></td>
                         <td>
-                        <?php 
+                        <?php
                         if ( false !== $status && $status == 'valid' ) {
                             if ( ! $expired ) { ?>
                                 <span style="color:green"><strong><?php _e( 'Active.' ); ?></strong></span>
@@ -470,7 +470,7 @@ function ycb_activate_license_key( $settings ) {
 
         // Send the remote request
         $response = wp_remote_post( YOOHOO_STORE, array( 'body' => $api_params, 'timeout' => 15, 'sslverify' => true ) );
-        
+
         // if there's no erros in the post, just delete the option.
         if ( ! is_wp_error( $response ) ) {
             $license_data = json_decode( wp_remote_retrieve_body( $response ) );
@@ -854,6 +854,10 @@ function ycb_custom_badge_previewer($badge_title_element, $badge_color_element, 
     <small><?php _e("Preview results may vary, as site styling may influence results"); ?></small>
     <script>
         jQuery(function(){
+            jQuery(window).load(function(){
+                jQuery("<?php echo $badge_title_element?>").keyup();
+            });
+
             jQuery(document).ready(function(){
                 let fa_regex = /%%(.+?)%%/g;
                 let emoji_regex = /##(.+?)##/g;
@@ -1116,7 +1120,7 @@ function ycb_create_emoji_css_picker($for_id){
                 <!-- GENERATED DYNAMICALLY -->
             </div>
             <div class='emoji_search'>
-                <input type='text' class='emoji_search_input' placeholder=<?php _e('Search (Press Enter)'); ?> >
+                <input type='text' class='emoji_search_input' placeholder="<?php _e('Search (Press Enter)'); ?>" >
             </div>
         </div>
     <?php
